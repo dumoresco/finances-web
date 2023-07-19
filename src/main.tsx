@@ -5,13 +5,14 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/index.tsx";
+import Home from "./pages/Home/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <BrowserRouter>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

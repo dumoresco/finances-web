@@ -13,7 +13,6 @@ export default createGlobalStyle`
         height: 100%;
         width: 100%;
         font-family: 'Inter', sans-serif;
-        background-color: #f5f5f5;
     }
     main{
         height: 100%;
@@ -30,6 +29,14 @@ export default createGlobalStyle`
     button{
         cursor: pointer;
         font-size: 1rem;
+    }
+
+    .container{
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 20px;
+
     }
 
 
