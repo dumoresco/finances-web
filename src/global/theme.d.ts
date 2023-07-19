@@ -1,0 +1,21 @@
+export const theme = {
+  colors: {
+    primary: "#1a73e8",
+    secondary: "#f5f5f5",
+    tertiary: "#fff",
+    text: "#202124",
+    textSecondary: "#5f6368",
+    textTertiary: "#fff",
+    error: "#d93025",
+    success: "#1b5e20",
+    warning: "#fbbc04",
+    info: "#1a73e8",
+    disabled: "#5f6368",
+    border: "#dadce0",
+    borderSecondary: "#e8eaed",
+    borderTertiary: "#fff",
+    background: "#fff",
+    backgroundSecondary: "#f5f5f5",
+    backgroundTertiary: "#fff",
+  },
+};
