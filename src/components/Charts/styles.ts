@@ -13,6 +13,13 @@ export const Container = styled.div`
     margin-left: 20px;
   }
 
+  @media (max-width: 768px) {
+    & + & {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  }
+
   .chart_icon {
     width: 50px;
     height: 50px;
