@@ -3,8 +3,6 @@ import Charts from "../../components/Charts";
 
 import { Container } from "./styles";
 import {
-  faArrowDown,
-  faArrowUp,
   faArrowsDownToLine,
   faArrowsUpToLine,
   faChevronDown,

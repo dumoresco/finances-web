@@ -14,7 +14,6 @@ import {
   List,
   LogOut,
   GalleryVerticalEnd,
-  Key,
   KeyRound,
   LayoutDashboard,
   CreditCard,
