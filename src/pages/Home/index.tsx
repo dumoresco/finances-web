@@ -7,7 +7,8 @@ import {
   faArrowUp,
   faArrowsDownToLine,
   faArrowsUpToLine,
-  faBarsStaggered,
+  faChevronDown,
+  faChevronUp,
   faEllipsisVertical,
   faPlus,
   faWallet,
@@ -89,84 +90,79 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <div className="container">
-        <header>
-          <div>
-            <h1>Versonanças</h1>
-          </div>
-          <button>
-            Novo <FontAwesomeIcon icon={faPlus} />
-          </button>
-        </header>
-        <div className="charts-container">
-          <Charts icon={faWallet} title="Saldo" value={1000} />
-          <Charts icon={faArrowsDownToLine} title="Entradas" value={1500} />
-          <Charts icon={faArrowsUpToLine} title="Saídas" value={500} />
-        </div>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Descrição
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faArrowDown : faArrowUp}
-                  />
-                </th>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Valor
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faArrowDown : faArrowUp}
-                  />
-                </th>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Categoria
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faArrowDown : faArrowUp}
-                  />
-                </th>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Data
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faArrowDown : faArrowUp}
-                  />
-                </th>
-                <th></th>
+      <header>
+        <button>
+          Novo <FontAwesomeIcon icon={faPlus} />
+        </button>
+      </header>
+      <div className="charts-container">
+        <Charts icon={faWallet} title="Saldo" value={1000} />
+        <Charts icon={faArrowsDownToLine} title="Entradas" value={1500} />
+        <Charts icon={faArrowsUpToLine} title="Saídas" value={500} />
+      </div>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th
+                onClick={() => {
+                  toggleSort();
+                }}
+              >
+                Descrição
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th
+                onClick={() => {
+                  toggleSort();
+                }}
+              >
+                Valor
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th
+                onClick={() => {
+                  toggleSort();
+                }}
+              >
+                Categoria
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th
+                onClick={() => {
+                  toggleSort();
+                }}
+              >
+                Data
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item.descricao}>
+                <td>{item.descricao}</td>
+                <td className={item.valor > 0 ? "deposit" : "withdraw"}>
+                  R${item.valor}
+                </td>
+                <td>{item.categoria}</td>
+                <td>{formatDate(item.data)}</td>
+                <td className="see_more_icon">
+                  <FontAwesomeIcon icon={faEllipsisVertical} />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <tr key={item.descricao}>
-                  <td>{item.descricao}</td>
-                  <td className={item.valor > 0 ? "deposit" : "withdraw"}>
-                    R${item.valor}
-                  </td>
-                  <td>{item.categoria}</td>
-                  <td>{formatDate(item.data)}</td>
-                  <td className="see_more_icon">
-                    <FontAwesomeIcon icon={faEllipsisVertical} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </Container>
   );

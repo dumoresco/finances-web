@@ -14,11 +14,7 @@ export default createGlobalStyle`
         width: 100%;
         font-family: 'Inter', sans-serif;
     }
-    main{
-        height: 100%;
-        width: 100%;
-        padding: 20px;
-    }
+
 
     input, button, textarea{
         font-family: 'Inter', sans-serif;
@@ -30,7 +26,19 @@ export default createGlobalStyle`
         cursor: pointer;
         font-size: 1rem;
     }
+ 
+    main {
+    overflow: hidden;
+    height: 100vh;
 
+    display: flex;
+    }
+
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+   
     .container{
         width: 100%;
         max-width: 1440px;
