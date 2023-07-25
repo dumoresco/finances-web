@@ -2,27 +2,27 @@
 
 // Path: src/redux/reducers/auth/auth.reducer.ts
 
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface AuthState {
   token: string;
   isAuthenticated: boolean;
   isLoading: boolean;
-  user: any;
+  user: object;
 }
 
 const initialState: AuthState = {
   token: "",
   isAuthenticated: false,
   isLoading: false,
-  user: null,
+  user: {},
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<string>) => {
+    login: (state) => {
       state.isLoading = true;
     },
   },
