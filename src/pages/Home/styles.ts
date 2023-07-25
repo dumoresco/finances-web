@@ -47,7 +47,38 @@ export const Container = styled.div`
       }
     }
   }
+  .filter_container {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
 
+    .select_group {
+      margin-left: 1rem;
+      select {
+        padding: 0.5rem;
+        border: 1px solid #dadada;
+        border-radius: 8px;
+        background-color: #ffffff;
+      }
+    }
+
+    .input_group {
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      max-width: 320px;
+
+      border: 1px solid #dadada;
+
+      .input_group_icon {
+        margin: 0.5rem;
+      }
+      input {
+        flex: 1;
+        margin-right: 1rem;
+      }
+    }
+  }
   .table-container {
     margin-top: 2rem;
     width: 100%;

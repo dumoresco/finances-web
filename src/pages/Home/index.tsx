@@ -13,9 +13,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDate } from "../../utils/utils";
+import { ChevronDown, Search } from "lucide-react";
 
 const Home: React.FC = () => {
   const [sort, setSort] = useState("asc");
+
   const data = [
     {
       descricao: "Compra de mantimentos",
@@ -97,6 +99,23 @@ const Home: React.FC = () => {
         <Charts icon={faWallet} title="Saldo" value={1000} />
         <Charts icon={faArrowsDownToLine} title="Entradas" value={1500} />
         <Charts icon={faArrowsUpToLine} title="Saídas" value={500} />
+      </div>
+      <div className="filter_container">
+        <div className="input_group">
+          <Search size={18} className="input_group_icon" />
+          <input type={"text"} placeholder="Pesquisar" />
+        </div>
+        <div className="select_group">
+          <select
+            name="filter"
+            id="filter"
+            // Step 2: Adiciona o selectRef como ref do select
+          >
+            <option value="all">Todos</option>
+            <option value="income">Entradas</option>
+            <option value="outcome">Saídas</option>
+          </select>
+        </div>
       </div>
       <div className="table-container">
         <table>

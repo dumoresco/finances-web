@@ -18,8 +18,19 @@ export default createGlobalStyle`
 
     input, button, textarea{
         font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 400;
         border: 0;
         outline: 0;
+    }
+
+    select{
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 400;
+        border: 0;
+        outline: 0;
+        appearance: none;
     }
 
     button{
