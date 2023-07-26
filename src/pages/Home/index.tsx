@@ -13,7 +13,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDate } from "../../utils/utils";
-import { ChevronDown, Search } from "lucide-react";
 
 const Home: React.FC = () => {
   const [sort, setSort] = useState("asc");
