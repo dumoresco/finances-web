@@ -6,8 +6,6 @@ export const Container = styled.div`
     justify-content: flex-end;
     align-items: center;
 
-    padding: 2rem 0;
-
     h1 {
       font-size: 2rem;
       font-weight: 500;
@@ -39,6 +37,7 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
 
+    margin-top: 2rem;
     @media (max-width: 768px) {
       flex-direction: column;
 
@@ -84,10 +83,12 @@ export const Container = styled.div`
     width: 100%;
 
     overflow-x: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
 
     table {
+      background-color: #ffffff;
       width: 100%;
-
       border: 1px solid #f2f2f2;
       border-radius: 15px;
 
@@ -123,8 +124,15 @@ export const Container = styled.div`
         transition: all 0.2s ease-in-out;
         cursor: pointer;
 
+        // o ultimo tr , os td nao terao borda
+        &:last-child {
+          td {
+            border-bottom: none;
+          }
+        }
         td {
           padding: 1rem;
+          border-bottom: 1px solid #f2f2f2;
         }
         .see_more_icon {
           cursor: pointer;

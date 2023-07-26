@@ -100,7 +100,7 @@ const Home: React.FC = () => {
         <Charts icon={faArrowsDownToLine} title="Entradas" value={1500} />
         <Charts icon={faArrowsUpToLine} title="Saídas" value={500} />
       </div>
-      <div className="filter_container">
+      {/* <div className="filter_container">
         <div className="input_group">
           <Search size={18} className="input_group_icon" />
           <input type={"text"} placeholder="Pesquisar" />
@@ -116,7 +116,7 @@ const Home: React.FC = () => {
             <option value="outcome">Saídas</option>
           </select>
         </div>
-      </div>
+      </div> */}
       <div className="table-container">
         <table>
           <thead>

@@ -1,9 +1,11 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-  border: 1px solid #dadada;
+  background-color: #ffffff;
+  border: 1px solid #f2f2f2;
   border-radius: 10px;
   width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   padding: 15px 10px;
 
   display: flex;
@@ -28,7 +30,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-    background-color: #f4f4f4;
+    background-color: #f2f2f2;
   }
 
   .chart_content {
