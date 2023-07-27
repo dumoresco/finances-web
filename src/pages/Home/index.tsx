@@ -19,8 +19,8 @@ import {
   selectIsFetching,
   selectTransactions,
 } from "../../redux/reducers/transactions/transaction.reducer";
-import { Wallet } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
+import { AppDispatch } from "../../redux/store";
 
 export interface Transaction {
   id: number;
@@ -71,10 +71,10 @@ const Home: React.FC = () => {
     0
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchTransactions());
-  }, []);
+  }, [dispatch]);
 
   const toggleSort = () => {
     if (sort === "asc") {

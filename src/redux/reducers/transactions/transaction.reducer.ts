@@ -29,10 +29,10 @@ const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",
 
   async () => {
-    const response: AxiosResponse<Array<Transaction>> = await api.get(
+    const response: AxiosResponse = await api.get(
       "/transaction?year=2021&month=7"
     );
-    const transactions = response.data;
+    const transactions = await response.data;
     return transactions;
   }
 );
