@@ -112,6 +112,10 @@ export const Container = styled.div`
         }
       }
 
+      tbody {
+        width: 100%;
+      }
+
       tbody > tr {
         font-size: 0.9rem;
         font-weight: 500;

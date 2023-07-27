@@ -7,6 +7,7 @@ import { currencyFormat } from "../../utils/utils";
 import { selectIsFetching } from "../../redux/reducers/transactions/transaction.reducer";
 import { useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
+import { Eye, EyeOff } from "lucide-react";
 interface IChartsProps {
   icon: IconProp;
   title: string;
@@ -14,8 +15,15 @@ interface IChartsProps {
 }
 
 const Charts: React.FC<IChartsProps> = ({ icon, title, value }) => {
+  const [seeValue, setSeeValue] = React.useState<boolean>(true);
   const isFetching = useSelector(selectIsFetching);
-  console.log(value > 0);
+
+  const toggleSeeValue = () => {
+    setSeeValue(!seeValue);
+  };
+
+  const Icone = seeValue ? EyeOff : Eye;
+
   return (
     <Container>
       {isFetching ? (
@@ -36,7 +44,20 @@ const Charts: React.FC<IChartsProps> = ({ icon, title, value }) => {
 
       <div className="chart_content">
         <div className="chart_title">
-          {isFetching ? <Skeleton width={50} height={20} /> : title}
+          {isFetching ? (
+            <Skeleton width={50} height={20} />
+          ) : (
+            <>
+              <div className="d-flex align-items-center">
+                {title}
+                <Icone
+                  className="ms-1 pointer"
+                  size={16}
+                  onClick={toggleSeeValue}
+                />
+              </div>
+            </>
+          )}
         </div>
         <span
           className={`chart_value ${
@@ -47,7 +68,13 @@ const Charts: React.FC<IChartsProps> = ({ icon, title, value }) => {
               : "neutral"
           }`}
         >
-          {isFetching ? <Skeleton width={150} /> : currencyFormat(value)}
+          {isFetching ? (
+            <Skeleton width={150} />
+          ) : seeValue ? (
+            currencyFormat(value)
+          ) : (
+            "********"
+          )}
         </span>
       </div>
     </Container>

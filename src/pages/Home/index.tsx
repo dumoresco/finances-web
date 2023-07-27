@@ -19,7 +19,6 @@ import {
   selectIsFetching,
   selectTransactions,
 } from "../../redux/reducers/transactions/transaction.reducer";
-import Skeleton from "react-loading-skeleton";
 import { AppDispatch } from "../../redux/store";
 
 export interface Transaction {
@@ -97,123 +96,75 @@ const Home: React.FC = () => {
         <Charts icon={faArrowsUpToLine} title="Saídas" value={saidas} />
       </div>
 
-      {isFetching ? (
-        <div
-          style={{
-            background: "#FFFFFF",
-            borderRadius: "15px",
-            marginTop: "2rem",
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            border: "1px solid #e5e5e5",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.05)",
-          }}
-        >
-          <div
-            style={{
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Skeleton width={100} height={20} />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-              }}
-            >
-              <Skeleton
-                width={1200}
-                style={{
-                  marginTop: "50px",
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th
+                onClick={() => {
+                  toggleSort();
                 }}
-                height={20}
-              />
-              <Skeleton
-                width={1200}
-                style={{
-                  marginTop: "50px",
+              >
+                Descrição
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th
+                onClick={() => {
+                  toggleSort();
                 }}
-                height={20}
-              />
-              <Skeleton
-                width={1200}
-                style={{
-                  marginTop: "50px",
+              >
+                Valor
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th
+                onClick={() => {
+                  toggleSort();
                 }}
-                height={20}
-              />
-              <Skeleton
-                width={1200}
-                style={{
-                  marginTop: "50px",
+              >
+                Categoria
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th
+                onClick={() => {
+                  toggleSort();
                 }}
-                height={20}
-              />
+              >
+                Data
+                <FontAwesomeIcon
+                  icon={sort === "asc" ? faChevronDown : faChevronUp}
+                />
+              </th>
+              <th></th>
+            </tr>
+          </thead>
 
-              <Skeleton
-                width={1200}
-                style={{
-                  marginTop: "50px",
-                }}
-                height={20}
-              />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="table-container">
-          <table>
-            <thead>
+          <tbody>
+            {isFetching ? (
+              <>
+                <td />
+                <td />
+                <div className="loader m-5"></div>
+                <td />
+                <td />
+              </>
+            ) : !isFetching && !transactions.length ? (
               <tr>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Descrição
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faChevronDown : faChevronUp}
-                  />
-                </th>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Valor
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faChevronDown : faChevronUp}
-                  />
-                </th>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Categoria
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faChevronDown : faChevronUp}
-                  />
-                </th>
-                <th
-                  onClick={() => {
-                    toggleSort();
-                  }}
-                >
-                  Data
-                  <FontAwesomeIcon
-                    icon={sort === "asc" ? faChevronDown : faChevronUp}
-                  />
-                </th>
-                <th></th>
+                <td />
+                <td />
+                <td colSpan={5} className="text-muted fw-normal">
+                  Nenhuma transação cadastrada
+                </td>
+                <td />
+                <td />
               </tr>
-            </thead>
-            <tbody>
-              {transactions.map((item: Transaction) => (
+            ) : (
+              transactions.map((item: Transaction) => (
                 <tr>
                   <td>{item.description}</td>
                   <td className={item.amount < 0 ? "negative" : "positive"}>
@@ -225,11 +176,11 @@ const Home: React.FC = () => {
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </Container>
   );
 };
