@@ -20,7 +20,7 @@ import {
   selectTransactions,
 } from "../../redux/reducers/transactions/transaction.reducer";
 import { AppDispatch } from "../../redux/store";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 
 export interface Transaction {
