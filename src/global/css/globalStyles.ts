@@ -13,7 +13,7 @@ export default createGlobalStyle`
         height: 100%;
         width: 100%;
         font-family: 'Inter', sans-serif;
-        background-color: #FBFBFB;
+        background-color: #F5F5F5;
     }
 
 
@@ -58,6 +58,27 @@ export default createGlobalStyle`
         padding: 0 20px;
 
     }
+
+      .positive {
+        color: #27ae60;
+      }
+      .negative {
+        color: #c0392b;
+      }
+      .neutral{
+        color: #525ba9;
+
+      }
+        .positive-bg {
+        background-color: #27ae60;
+      }
+      .negative-bg {
+         background-color: #c0392b;
+      }
+
+      .neutral-bg{
+        background-color: #525ba9;
+      }
 
 
 `;

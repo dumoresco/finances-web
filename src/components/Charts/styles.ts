@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   background-color: #ffffff;
-  border: 1px solid #f2f2f2;
+  border: 1px solid #e5e5e5;
   border-radius: 10px;
   width: 100%;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
@@ -29,8 +29,6 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: #f2f2f2;
   }
 
   .chart_content {
@@ -42,7 +40,6 @@ export const Container = styled.div`
       font-weight: 500;
     }
     .chart_value {
-      color: #000000;
       font-size: 1.2rem;
       font-weight: 600;
     }

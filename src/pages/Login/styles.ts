@@ -22,7 +22,7 @@ export const Container = styled.div`
         width: 100%;
         padding: 1rem;
         border-radius: 4px;
-        border: 1px solid #ccc;
+        border: 1px solid #e5e5e5;
         margin-bottom: 1rem;
       }
     }

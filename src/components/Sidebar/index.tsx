@@ -68,7 +68,7 @@ const Sidebar: React.FC = () => {
         <Header>
           <div className="title">
             <BadgeDollarSign />
-            <span>My litte wallet</span>
+            <span>Meu dinheirinho</span>
           </div>
         </Header>
 

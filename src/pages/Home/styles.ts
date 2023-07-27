@@ -55,7 +55,7 @@ export const Container = styled.div`
       margin-left: 1rem;
       select {
         padding: 0.5rem;
-        border: 1px solid #dadada;
+        border: 1px solid #e5e5e5;
         border-radius: 8px;
         background-color: #ffffff;
       }
@@ -67,7 +67,7 @@ export const Container = styled.div`
       border-radius: 8px;
       max-width: 320px;
 
-      border: 1px solid #dadada;
+      border: 1px solid #e5e5e5;
 
       .input_group_icon {
         margin: 0.5rem;
@@ -89,17 +89,11 @@ export const Container = styled.div`
     table {
       background-color: #ffffff;
       width: 100%;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #e5e5e5;
       border-radius: 15px;
 
-      .deposit {
-        color: #27ae60;
-      }
-      .withdraw {
-        color: #c0392b;
-      }
       th {
-        border-bottom: 1px solid #f2f2f2;
+        border-bottom: 1px solid #e5e5e5;
         font-size: 0.9rem;
         font-weight: 500;
         text-align: left;

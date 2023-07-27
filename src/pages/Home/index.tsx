@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Charts from "../../components/Charts";
 
 import { Container } from "./styles";
@@ -11,74 +11,71 @@ import {
   faPlus,
   faWallet,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDate } from "../../utils/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTransactions,
+  selectIsFetching,
+  selectTransactions,
+} from "../../redux/reducers/transactions/transaction.reducer";
+import { Wallet } from "lucide-react";
+import Skeleton from "react-loading-skeleton";
 
+export interface Transaction {
+  id: number;
+  description: string;
+  amount: number;
+  due_date: string;
+  is_recurring: boolean;
+  total_installments: number;
+  category?: string;
+  installments?: {
+    id: number;
+    transaction_id: number;
+    installment_number: number;
+    installment_amount: string;
+    due_date: string;
+    paid: boolean;
+  }[];
+}
 const Home: React.FC = () => {
   const [sort, setSort] = useState("asc");
+  const transactions = useSelector(selectTransactions);
+  const isFetching = useSelector(selectIsFetching);
+  console.log(transactions);
 
-  const data = [
-    {
-      descricao: "Compra de mantimentos",
-      valor: 50.25,
-      categoria: "Alimentacao",
-      data: "2023-07-24",
+  const saldo = transactions.reduce((acc, item) => {
+    return acc + item.amount;
+  }, 0);
+
+  const entradas = transactions.reduce(
+    (acc, item) => {
+      if (item.amount > 0) {
+        return acc + item.amount;
+      }
+      return acc;
     },
-    {
-      descricao: "Pagamento de conta de energia",
-      valor: 120.75,
-      categoria: "Contas",
-      data: "2023-07-25",
+
+    0
+  );
+
+  const saidas = transactions.reduce(
+    (acc, item) => {
+      if (item.amount < 0) {
+        return acc + item.amount;
+      }
+      return acc;
     },
-    {
-      descricao: "Compras de roupas",
-      valor: 200.0,
-      categoria: "Vestuario",
-      data: "2023-07-26",
-    },
-    {
-      descricao: "Gasolina para o carro",
-      valor: -80.0,
-      categoria: "Transporte",
-      data: "2023-07-27",
-    },
-    {
-      descricao: "Jantar em restaurante",
-      valor: 75.5,
-      categoria: "Alimentacao",
-      data: "2023-07-28",
-    },
-    {
-      descricao: "Assinatura de streaming",
-      valor: 15.0,
-      categoria: "Entretenimento",
-      data: "2023-07-29",
-    },
-    {
-      descricao: "Presente para amigo",
-      valor: -30.0,
-      categoria: "Outros",
-      data: "2023-07-30",
-    },
-    {
-      descricao: "Material de escritorio",
-      valor: 50.0,
-      categoria: "Trabalho",
-      data: "2023-07-31",
-    },
-    {
-      descricao: "Curso online",
-      valor: 100.0,
-      categoria: "Educacao",
-      data: "2023-08-01",
-    },
-    {
-      descricao: "Compras de frutas",
-      valor: 35.0,
-      categoria: "Alimentacao",
-      data: "2023-08-02",
-    },
-  ];
+
+    0
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTransactions());
+  }, []);
+
   const toggleSort = () => {
     if (sort === "asc") {
       setSort("desc");
@@ -95,91 +92,144 @@ const Home: React.FC = () => {
         </button>
       </header>
       <div className="charts-container">
-        <Charts icon={faWallet} title="Saldo" value={1000} />
-        <Charts icon={faArrowsDownToLine} title="Entradas" value={1500} />
-        <Charts icon={faArrowsUpToLine} title="Saídas" value={500} />
+        <Charts icon={faWallet} title="Saldo" value={saldo} />
+        <Charts icon={faArrowsDownToLine} title="Entradas" value={entradas} />
+        <Charts icon={faArrowsUpToLine} title="Saídas" value={saidas} />
       </div>
-      {/* <div className="filter_container">
-        <div className="input_group">
-          <Search size={18} className="input_group_icon" />
-          <input type={"text"} placeholder="Pesquisar" />
-        </div>
-        <div className="select_group">
-          <select
-            name="filter"
-            id="filter"
-            // Step 2: Adiciona o selectRef como ref do select
+
+      {isFetching ? (
+        <div
+          style={{
+            background: "#FFFFFF",
+            borderRadius: "15px",
+            marginTop: "2rem",
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            border: "1px solid #e5e5e5",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.05)",
+          }}
+        >
+          <div
+            style={{
+              padding: "20px",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
-            <option value="all">Todos</option>
-            <option value="income">Entradas</option>
-            <option value="outcome">Saídas</option>
-          </select>
+            <Skeleton width={100} height={20} />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+              }}
+            >
+              <Skeleton
+                width={1200}
+                style={{
+                  marginTop: "50px",
+                }}
+                height={20}
+              />
+              <Skeleton
+                width={1200}
+                style={{
+                  marginTop: "50px",
+                }}
+                height={20}
+              />
+              <Skeleton
+                width={1200}
+                style={{
+                  marginTop: "50px",
+                }}
+                height={20}
+              />
+              <Skeleton
+                width={1200}
+                style={{
+                  marginTop: "50px",
+                }}
+                height={20}
+              />
+
+              <Skeleton
+                width={1200}
+                style={{
+                  marginTop: "50px",
+                }}
+                height={20}
+              />
+            </div>
+          </div>
         </div>
-      </div> */}
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th
-                onClick={() => {
-                  toggleSort();
-                }}
-              >
-                Descrição
-                <FontAwesomeIcon
-                  icon={sort === "asc" ? faChevronDown : faChevronUp}
-                />
-              </th>
-              <th
-                onClick={() => {
-                  toggleSort();
-                }}
-              >
-                Valor
-                <FontAwesomeIcon
-                  icon={sort === "asc" ? faChevronDown : faChevronUp}
-                />
-              </th>
-              <th
-                onClick={() => {
-                  toggleSort();
-                }}
-              >
-                Categoria
-                <FontAwesomeIcon
-                  icon={sort === "asc" ? faChevronDown : faChevronUp}
-                />
-              </th>
-              <th
-                onClick={() => {
-                  toggleSort();
-                }}
-              >
-                Data
-                <FontAwesomeIcon
-                  icon={sort === "asc" ? faChevronDown : faChevronUp}
-                />
-              </th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => (
-              <tr key={item.descricao}>
-                <td>{item.descricao}</td>
-                <td className={item.valor > 0 ? "deposit" : "withdraw"}>
-                  R${item.valor}
-                </td>
-                <td>{item.categoria}</td>
-                <td>{formatDate(item.data)}</td>
-                <td className="see_more_icon">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </td>
+      ) : (
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th
+                  onClick={() => {
+                    toggleSort();
+                  }}
+                >
+                  Descrição
+                  <FontAwesomeIcon
+                    icon={sort === "asc" ? faChevronDown : faChevronUp}
+                  />
+                </th>
+                <th
+                  onClick={() => {
+                    toggleSort();
+                  }}
+                >
+                  Valor
+                  <FontAwesomeIcon
+                    icon={sort === "asc" ? faChevronDown : faChevronUp}
+                  />
+                </th>
+                <th
+                  onClick={() => {
+                    toggleSort();
+                  }}
+                >
+                  Categoria
+                  <FontAwesomeIcon
+                    icon={sort === "asc" ? faChevronDown : faChevronUp}
+                  />
+                </th>
+                <th
+                  onClick={() => {
+                    toggleSort();
+                  }}
+                >
+                  Data
+                  <FontAwesomeIcon
+                    icon={sort === "asc" ? faChevronDown : faChevronUp}
+                  />
+                </th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {transactions.map((item: Transaction) => (
+                <tr>
+                  <td>{item.description}</td>
+                  <td className={item.amount < 0 ? "negative" : "positive"}>
+                    {item.amount}
+                  </td>
+                  <td>{item.category}</td>
+                  <td>{formatDate(item.due_date)}</td>
+                  <td>
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </Container>
   );
 };
