@@ -6,30 +6,24 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    @media (max-width: 768px) {
+      flex-direction: column;
+
+      h1 {
+        text-align: center;
+      }
+
+      .yearMounthSelect {
+        margin: 2rem 0;
+      }
+      button {
+        width: 100%;
+      }
+    }
+
     h1 {
       font-size: 2rem;
       font-weight: 500;
-    }
-
-    button {
-      transition: all 0.2s ease-in-out;
-      background: #606ccb;
-      border: none;
-      border-radius: 4px;
-      padding: 0.5rem 1rem;
-      color: #fff;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      svg {
-        margin-left: 0.5rem;
-      }
-
-      &:hover {
-        background: #525ba9;
-      }
     }
   }
 

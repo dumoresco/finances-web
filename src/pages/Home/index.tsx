@@ -20,9 +20,19 @@ import {
   selectTransactions,
 } from "../../redux/reducers/transactions/transaction.reducer";
 import { AppDispatch } from "../../redux/store";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  DessertIcon,
+  Pen,
+  PenBox,
+  Plus,
+  Trash,
+} from "lucide-react";
 import Skeleton from "react-loading-skeleton";
-
+import { Modal } from "react-bootstrap";
+import Input from "../../components/Input";
+import { Button } from "../../components/Button";
 export interface Transaction {
   id: number;
   description: string;
@@ -41,6 +51,7 @@ export interface Transaction {
   }[];
 }
 const Home: React.FC = () => {
+  const [showModalNovaTransacao, setShowModalNovaTransacao] = useState(false);
   const [sort, setSort] = useState("asc");
   const transactions = useSelector(selectTransactions);
   const isFetching = useSelector(selectIsFetching);
@@ -177,12 +188,15 @@ const Home: React.FC = () => {
         <h1
           style={{
             width: "100%",
-            maxWidth: "250px",
+            maxWidth: "230px",
             fontSize: "2rem",
           }}
         >
           {isFetching ? (
-            <Skeleton width={250} />
+            <div className="d-flex">
+              <Skeleton width={150} className="me-2" />
+              <Skeleton width={50} />
+            </div>
           ) : (
             <div>
               <span className="fw-light fs-3">
@@ -192,7 +206,7 @@ const Home: React.FC = () => {
             </div>
           )}
         </h1>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center yearMounthSelect">
           <ChevronLeft
             color={isFetching || yearMonthSelected.id === 1 ? "#ccc" : "#000"}
             className="pointer"
@@ -246,9 +260,16 @@ const Home: React.FC = () => {
             }}
           />
         </div>
-        <button>
-          Novo <FontAwesomeIcon icon={faPlus} />
-        </button>
+        <div className="col-1">
+          <Button.Root
+            onClick={() => {
+              setShowModalNovaTransacao(true);
+            }}
+          >
+            <Button.Text>Novo</Button.Text>
+            <Button.Icon icon={Plus} />
+          </Button.Root>
+        </div>
       </header>
       <div className="charts-container">
         <Charts icon={faWallet} title="Saldo" value={saldo} />
@@ -333,8 +354,84 @@ const Home: React.FC = () => {
           ) : null}
         </div>
       </div>
+      {showModalNovaTransacao && (
+        <ModalNovaTransacao
+          show={showModalNovaTransacao}
+          setShow={setShowModalNovaTransacao}
+        />
+      )}
     </Container>
   );
 };
 
 export default Home;
+
+interface IModalNovaTransacaoProps {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ModalNovaTransacao: React.FC<IModalNovaTransacaoProps> = ({
+  show,
+  setShow,
+}) => {
+  return (
+    <Modal show={show} onHide={() => setShow(false)} centered>
+      <Modal.Body>
+        <div className="d-flex justify-content-between align-items-center">
+          <Input
+            label="Descrição"
+            type={"text"}
+            name="description"
+            value=""
+            icon={Pen}
+          />{" "}
+          <Input
+            label="Descrição"
+            type={"text"}
+            name="description"
+            value=""
+            icon={Pen}
+          />
+        </div>
+        <div className="d-flex justify-content-between align-items-center">
+          <Input
+            label="Descrição"
+            type={"text"}
+            name="description"
+            value=""
+            icon={Pen}
+          />{" "}
+        </div>
+        <div className="d-flex justify-content-between align-items-center">
+          <Input
+            label="Descrição"
+            type={"text"}
+            name="description"
+            value=""
+            icon={Pen}
+          />{" "}
+          <Input
+            label="Descrição"
+            type={"text"}
+            name="description"
+            value=""
+            icon={Pen}
+          />
+        </div>
+        <div className="d-flex justify-content-between align-items-center">
+          <Input
+            label="Descrição"
+            type={"text"}
+            name="description"
+            value=""
+            icon={Pen}
+          />{" "}
+        </div>
+        <Button.Root type="submit" className="mb-2">
+          <Button.Text>Cadastrar</Button.Text>
+        </Button.Root>
+      </Modal.Body>
+    </Modal>
+  );
+};
