@@ -72,66 +72,56 @@ export const Container = styled.div`
       }
     }
   }
-  .table-container {
-    margin-top: 2rem;
+
+  table {
     width: 100%;
+    th {
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 1rem;
+      color: #828282;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
 
-    overflow-x: auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 15px;
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 15px;
-    table {
+      &:hover {
+        color: #000000;
+      }
+
+      svg {
+        margin-left: 0.5rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    tbody {
       width: 100%;
-      th {
-        border-bottom: 1px solid #e5e5e5;
-        font-size: 0.9rem;
-        font-weight: 500;
-        text-align: left;
-        padding: 1rem;
-        color: #828282;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
+    }
 
+    tbody > tr {
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+
+      // o ultimo tr , os td nao terao borda
+      &:last-child {
+        td {
+          border-bottom: none;
+        }
+      }
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid #f2f2f2;
+      }
+      .see_more_icon {
+        cursor: pointer;
+        font-size: 0.8rem;
+
+        color: #bebebe;
         &:hover {
           color: #000000;
-        }
-
-        svg {
-          margin-left: 0.5rem;
-          font-size: 0.7rem;
-        }
-      }
-
-      tbody {
-        width: 100%;
-      }
-
-      tbody > tr {
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: all 0.2s ease-in-out;
-        cursor: pointer;
-
-        // o ultimo tr , os td nao terao borda
-        &:last-child {
-          td {
-            border-bottom: none;
-          }
-        }
-        td {
-          padding: 1rem;
-          border-bottom: 1px solid #f2f2f2;
-        }
-        .see_more_icon {
-          cursor: pointer;
-          font-size: 0.8rem;
-
-          color: #bebebe;
-          &:hover {
-            color: #000000;
-          }
         }
       }
     }

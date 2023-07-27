@@ -33,6 +33,7 @@ import Skeleton from "react-loading-skeleton";
 import { Modal } from "react-bootstrap";
 import Input from "../../components/Input";
 import { Button } from "../../components/Button";
+import Card from "../../components/Card";
 export interface Transaction {
   id: number;
   description: string;
@@ -260,8 +261,9 @@ const Home: React.FC = () => {
             }}
           />
         </div>
-        <div className="col-1">
+        <div className="col-12 col-md-2 col-lg-2 col-xxl-1">
           <Button.Root
+            disabled={isFetching}
             onClick={() => {
               setShowModalNovaTransacao(true);
             }}
@@ -277,7 +279,7 @@ const Home: React.FC = () => {
         <Charts icon={faArrowsUpToLine} title="Saídas" value={saidas} />
       </div>
 
-      <div className="table-container">
+      <Card className="mt-5">
         <table>
           <thead>
             <tr>
@@ -343,7 +345,6 @@ const Home: React.FC = () => {
               ))}
           </tbody>
         </table>
-
         <div className="w-100 d-flex justify-content-center align-items-center  p-5">
           {isFetching ? (
             <div className="loader "></div>
@@ -353,7 +354,8 @@ const Home: React.FC = () => {
             </span>
           ) : null}
         </div>
-      </div>
+      </Card>
+
       {showModalNovaTransacao && (
         <ModalNovaTransacao
           show={showModalNovaTransacao}
