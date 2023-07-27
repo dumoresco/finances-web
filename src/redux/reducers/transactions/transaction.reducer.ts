@@ -25,12 +25,20 @@ const reducers = {
   },
 };
 
+// fetch transactions
+interface PayloadFetchTransactions {
+  year: number;
+  month: string;
+}
+
 const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",
 
-  async () => {
+  async (payload: PayloadFetchTransactions) => {
+    const { year, month } = payload;
+
     const response: AxiosResponse = await api.get(
-      "/transaction?year=2021&month=7"
+      `/transaction?year=${year}&month=${month}`
     );
     const transactions = await response.data;
     return transactions;

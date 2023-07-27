@@ -5,7 +5,7 @@ import { store } from "./redux/store.ts";
 import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "react-multi-carousel/lib/styles.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <BrowserRouter>

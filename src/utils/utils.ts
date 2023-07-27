@@ -15,3 +15,7 @@ export const currencyFormat = (value: number) => {
     currency: "BRL",
   });
 };
+
+export const firstLetterToUpperCase = (value: string) => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+};

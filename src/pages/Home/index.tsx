@@ -11,7 +11,7 @@ import {
   faPlus,
   faWallet,
 } from "@fortawesome/free-solid-svg-icons";
-import { formatDate } from "../../utils/utils";
+import { firstLetterToUpperCase, formatDate } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,6 +20,8 @@ import {
   selectTransactions,
 } from "../../redux/reducers/transactions/transaction.reducer";
 import { AppDispatch } from "../../redux/store";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import Skeleton from "react-loading-skeleton";
 
 export interface Transaction {
   id: number;
@@ -72,8 +74,13 @@ const Home: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(fetchTransactions());
-  }, [dispatch]);
+    dispatch(
+      fetchTransactions({
+        year: yearMonthSelected.year,
+        month: yearMonthSelected.month,
+      })
+    );
+  }, []);
 
   const toggleSort = () => {
     if (sort === "asc") {
@@ -83,9 +90,162 @@ const Home: React.FC = () => {
     }
   };
 
+  const yearsMonth = [
+    {
+      id: 1,
+      month: "Janeiro",
+      year: 2023,
+    },
+    {
+      id: 2,
+      month: "Fevereiro",
+      year: 2023,
+    },
+    {
+      id: 3,
+      month: "Março",
+      year: 2023,
+    },
+    {
+      id: 4,
+      month: "Abril",
+      year: 2023,
+    },
+    {
+      id: 5,
+      month: "Maio",
+      year: 2023,
+    },
+    {
+      id: 6,
+      month: "Junho",
+      year: 2023,
+    },
+    {
+      id: 7,
+      month: "Julho",
+      year: 2023,
+    },
+    {
+      id: 8,
+      month: "Agosto",
+      year: 2023,
+    },
+    {
+      id: 9,
+      month: "Setembro",
+      year: 2023,
+    },
+    {
+      id: 10,
+      month: "Outubro",
+      year: 2023,
+    },
+    {
+      id: 11,
+      month: "Novembro",
+      year: 2023,
+    },
+    {
+      id: 12,
+      month: "Dezembro",
+      year: 2023,
+    },
+  ];
+
+  // pega o year e mes atual do sistema
+
+  const date = new Date();
+  // month no formato long
+  const monthName = new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
+    date
+  );
+  const monthId = date.getMonth() + 1;
+
+  const year = date.getFullYear();
+
+  console.log(monthName, year);
+  const [yearMonthSelected, setYearMonthSelected] = useState({
+    id: monthId,
+    month: monthName,
+    year: year,
+  });
+
   return (
     <Container>
       <header>
+        <h1
+          style={{
+            width: "100%",
+            maxWidth: "250px",
+            fontSize: "2rem",
+          }}
+        >
+          {isFetching ? (
+            <Skeleton width={250} />
+          ) : (
+            <div>
+              <span className="fw-light fs-3">
+                {firstLetterToUpperCase(yearMonthSelected.month)} /
+              </span>
+              <span className="fw-semi  fs-3">{yearMonthSelected.year}</span>
+            </div>
+          )}
+        </h1>
+        <div className="d-flex align-items-center">
+          <ChevronLeft
+            color={isFetching || yearMonthSelected.id === 1 ? "#ccc" : "#000"}
+            className="pointer"
+            onClick={() => {
+              if (isFetching) return;
+              if (yearMonthSelected.id === 1) return;
+
+              const index = yearsMonth.findIndex(
+                (item) => item.id === yearMonthSelected.id
+              );
+              if (index > 0) {
+                setYearMonthSelected(yearsMonth[index - 1]);
+              }
+
+              dispatch(
+                fetchTransactions({
+                  year: yearMonthSelected.year,
+                  month: yearMonthSelected.month,
+                })
+              );
+            }}
+          />
+          <div
+            className="mx-2 d-flex align-items-center justify-content-center"
+            style={{
+              width: "120px",
+              color: isFetching ? "#ccc" : "#000",
+            }}
+          >
+            {yearMonthSelected.month + "/" + yearMonthSelected.year}
+          </div>
+          <ChevronRight
+            color={isFetching || yearMonthSelected.id === 12 ? "#ccc" : "#000"}
+            className="pointer"
+            onClick={() => {
+              if (isFetching) return;
+              if (yearMonthSelected.id === 12) return;
+              const index = yearsMonth.findIndex(
+                (item) => item.id === yearMonthSelected.id
+              );
+              if (index < yearsMonth.length - 1) {
+                setYearMonthSelected(yearsMonth[index + 1]);
+              }
+
+              dispatch(
+                fetchTransactions({
+                  year: yearMonthSelected.year,
+                  month: yearMonthSelected.month,
+                })
+              );
+            }}
+          />
+        </div>
         <button>
           Novo <FontAwesomeIcon icon={faPlus} />
         </button>
@@ -145,25 +305,8 @@ const Home: React.FC = () => {
           </thead>
 
           <tbody>
-            {isFetching ? (
-              <>
-                <td />
-                <td />
-                <div className="loader m-5"></div>
-                <td />
-                <td />
-              </>
-            ) : !isFetching && !transactions.length ? (
-              <tr>
-                <td />
-                <td />
-                <td colSpan={5} className="text-muted fw-normal">
-                  Nenhuma transação cadastrada
-                </td>
-                <td />
-                <td />
-              </tr>
-            ) : (
+            {!isFetching &&
+              !!transactions.length &&
               transactions.map((item: Transaction) => (
                 <tr>
                   <td>{item.description}</td>
@@ -176,10 +319,19 @@ const Home: React.FC = () => {
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                   </td>
                 </tr>
-              ))
-            )}
+              ))}
           </tbody>
         </table>
+
+        <div className="w-100 d-flex justify-content-center align-items-center  p-5">
+          {isFetching ? (
+            <div className="loader "></div>
+          ) : !isFetching && !transactions.length ? (
+            <span className="text-muted  fw-normal ">
+              Nenhuma transação encontrada
+            </span>
+          ) : null}
+        </div>
       </div>
     </Container>
   );
