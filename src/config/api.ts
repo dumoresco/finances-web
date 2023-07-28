@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://1ca1-45-166-181-186.ngrok-free.app/api",
+  baseURL: "https://adc0-45-166-181-186.ngrok-free.app/api",
 });
 
 // configura o header para enviar o token

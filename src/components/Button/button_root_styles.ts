@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 interface ContainerProps {
-  variant?: "primary" | "secondary" | "error";
+  variant?: "primary" | "secondary" | "error" | "success";
 }
 export const Container = styled.button<ContainerProps>`
   transition: all 0.2s ease-in-out;
@@ -11,6 +11,8 @@ export const Container = styled.button<ContainerProps>`
       ? "#f5f5f5"
       : props.variant === "error"
       ? "#f44336"
+      : props.variant === "success"
+      ? "#4caf50"
       : "#525ba9"};
 
   border: none;

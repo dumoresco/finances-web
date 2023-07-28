@@ -16,6 +16,6 @@ export const currencyFormat = (value: number) => {
   });
 };
 
-export const firstLetterToUpperCase = (value: string) => {
+export const firstLetterToUpperCase = (value: string): string => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };

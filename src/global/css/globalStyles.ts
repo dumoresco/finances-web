@@ -84,6 +84,10 @@ export default createGlobalStyle`
         cursor: pointer;
       }
 
+       .type_desactive {
+          filter: brightness(0.5);
+        }
+
       .loader {
     width: 48px;
     height: 48px;
