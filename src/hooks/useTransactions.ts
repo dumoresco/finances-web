@@ -141,10 +141,12 @@ export const useTransactions = () => {
     year: year,
   });
 
-  const handleAddTransaction = () => {
-    dispatch(addTransaction(payloadAddTransaction));
+  const handleAddTransaction = async () => {
+    await dispatch(addTransaction(payloadAddTransaction));
 
     setShowModalNovaTransacao(false);
+
+    await handleFetchTransactions();
   };
 
   // quando o yearMonthSelected mudar, chama o fetchTransactions
