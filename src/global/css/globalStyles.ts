@@ -109,6 +109,28 @@ export default createGlobalStyle`
     } 
 
 
+          .loader-btn {
+    width: 22px;
+    height: 22px;
+    border: 5px solid #FFFFFF;
+    border-bottom-color: #525ba9;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+
+
+
     .w-100 {
         width: 100%;
     }
