@@ -19,8 +19,12 @@ import {
   CreditCard,
   Goal,
 } from "lucide-react";
+import { AppDispatch } from "../../redux/store";
+import { logout } from "../../redux/reducers/auth/auth.reducer";
+import { useDispatch } from "react-redux";
 
 const Sidebar: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
   const menus = [
     {
       name: "Início",
@@ -91,7 +95,11 @@ const Sidebar: React.FC = () => {
             );
           })}
         </Navigation>
-        <BtnSair>
+        <BtnSair
+          onClick={() => {
+            dispatch(logout());
+          }}
+        >
           <Icon icon={LogOut} />
           <span>Sair</span>
         </BtnSair>

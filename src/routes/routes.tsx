@@ -5,6 +5,8 @@ import { ReactNode } from "react";
 import Sidebar from "../components/Sidebar";
 import Content from "../components/Content";
 import { NotFound } from "../pages/NotFound";
+import Register from "../pages/Register";
+import { useAuth } from "../hooks/useAuth";
 
 export const AppRoutes = () => {
   return (
@@ -28,6 +30,15 @@ export const AppRoutes = () => {
       />
 
       <Route
+        path="/Register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
+
+      <Route
         path={"*"}
         element={
           <PrivateRoute>
@@ -40,9 +51,10 @@ export const AppRoutes = () => {
 };
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
-  const authenticated = true;
-
-  return authenticated ? (
+  const {getToken} = useAuth();
+ 
+  console.log('getToken', getToken)
+  return getToken ? (
     <>
       <Sidebar />
       <Content>{children}</Content>
@@ -53,7 +65,7 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 };
 
 const PublicRoute = ({ children }: { children: ReactNode }) => {
-  const authenticated = true;
+  const {getToken} = useAuth();
 
-  return authenticated ? <Navigate to="/" /> : <Content>{children}</Content>;
+  return getToken ? <Navigate to="/" /> : <Content>{children}</Content>;
 };

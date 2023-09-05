@@ -1,9 +1,11 @@
+import { ToastContainer } from "react-bootstrap";
 import GlobalStyles from "./global/css/globalStyles";
 import { AppRoutes } from "./routes/routes";
-import "react-loading-skeleton/dist/skeleton.css";
+
 function App() {
   return (
     <main>
+      <ToastContainer/>
       <GlobalStyles />
       <AppRoutes />
     </main>

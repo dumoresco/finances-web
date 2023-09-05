@@ -1,19 +1,18 @@
 import React from "react";
 
 import { Container, Label, InputContainer } from "./styles";
+import { Check } from "lucide-react";
 
 interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   name: string;
-  value: string | number;
   icon?: React.ElementType;
   className?: string;
 }
 
 const Input: React.FC<IInputProps> = ({
-  label,
   name,
-  value,
+  label,
   className,
   icon: Icon,
   ...rest
@@ -21,17 +20,28 @@ const Input: React.FC<IInputProps> = ({
   return (
     <Container className={className}>
       <Label>{label}</Label>
-      <InputContainer>
-        {Icon && <Icon size={16} color={"#BDBDBD"} />}
+
+      <InputContainer required={rest.required} value={rest.value}>
+        {Icon && (
+          <Icon
+            size={16}
+            color={rest.required && !rest.value ? "#c0392b" : "#27ae60"}
+          />
+        )}
         <input
+          required={rest.required}
           defaultValue={rest.defaultValue}
           type={rest.type}
           placeholder={rest.placeholder}
           name={name}
-          value={value}
+          value={rest.value}
           onChange={rest.onChange}
           {...rest}
         />
+        {rest.required && rest.value && <Check size={16} color="#27ae60" />}
+        {rest.required && !rest.value && (
+          <span className="error">Campo {name} obrigatório</span>
+        )}
       </InputContainer>
     </Container>
   );
