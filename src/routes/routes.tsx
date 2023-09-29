@@ -53,7 +53,6 @@ export const AppRoutes = () => {
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const { getToken } = useAuth();
 
-  console.log("getToken", getToken);
   return getToken ? (
     <>
       <Sidebar />
@@ -66,7 +65,6 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 
 const PublicRoute = ({ children }: { children: ReactNode }) => {
   const { getToken } = useAuth();
-  console.log("getToken", getToken);
 
   return getToken ? <Navigate to="/" /> : <Content>{children}</Content>;
 };

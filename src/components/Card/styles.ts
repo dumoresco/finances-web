@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  overflow-x: auto;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
   background-color: #ffffff;

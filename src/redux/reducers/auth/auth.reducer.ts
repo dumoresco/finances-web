@@ -47,14 +47,9 @@ const signIn = createAsyncThunk(
 const signUp = createAsyncThunk(
   "auth/signUp",
   async (payload: RegisterPayload) => {
-    console.log(payload);
     const response = await api.post("/signup", payload);
 
-    console.log(response);
-
     if (response.status === 200) {
-      console.log("deu certo");
-
       return response.data;
     }
   }

@@ -8,22 +8,20 @@ interface InputContainerProps {
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  flex-grow: 1;
 `;
 export const Label = styled.label`
   font-size: 0.9rem;
   font-weight: 400;
 `;
 export const InputContainer = styled.div<InputContainerProps>`
-  border: 1px solid
-    ${(props) => (props.required && !props.value ? "#b9b8b8" : "#27ae60")};
+  border: 1px solid #b9b8b8;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
   border-radius: 4px;
   background: #f5f5f5;
-  margin-bottom: 1rem;
   position: relative;
 
   .error {

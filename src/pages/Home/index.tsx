@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from "react";
 import Charts from "../../components/Charts";
 
@@ -20,6 +21,7 @@ import {
   DollarSign,
   Pen,
   Plus,
+  PlusCircle,
 } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import { Modal } from "react-bootstrap";
@@ -28,6 +30,8 @@ import { Button } from "../../components/Button";
 import Card from "../../components/Card";
 import { Transaction } from "../../types/transactions";
 import { useTransactions } from "../../hooks/useTransactions";
+import Select from "../../components/Select";
+import InputSelect from "../../components/Select";
 
 const Home: React.FC = () => {
   const {
@@ -44,6 +48,8 @@ const Home: React.FC = () => {
     entradas,
     saidas,
     saldo,
+
+    categories,
 
     setPayloadAddTransaction,
     payloadAddTransaction,
@@ -114,24 +120,55 @@ const Home: React.FC = () => {
             }}
           />
         </div>
-        <div className="col-12 col-md-2 col-lg-2 col-xxl-1">
-          <Button.Root
-            disabled={isFetching}
-            onClick={() => {
-              setShowModalNovaTransacao(true);
-            }}
-          >
-            <Button.Text>Novo</Button.Text>
-            <Button.Icon icon={Plus} />
-          </Button.Root>
-        </div>
       </header>
       <div className="charts-container">
         <Charts icon={faWallet} title="Saldo" value={saldo} />
         <Charts icon={faArrowsDownToLine} title="Entradas" value={entradas} />
         <Charts icon={faArrowsUpToLine} title="Saídas" value={saidas} />
       </div>
+      <Card className="mt-5 d-flex p-3 align-items-end gap-1 flex-wrap">
+        <Input
+          required
+          label="Descrição"
+          type={"text"}
+          name="description"
+          onChange={(e) => {
+            setPayloadAddTransaction({
+              ...payloadAddTransaction,
+              description: e.target.value,
+            });
+          }}
+          value={payloadAddTransaction.description}
+          icon={Pen}
+        />
+        <Input
+          required
+          label="Valor"
+          type={"number"}
+          name="amount"
+          onChange={(e) => {
+            setPayloadAddTransaction({
+              ...payloadAddTransaction,
+              amount: Number(e.target.value),
+            });
+          }}
+          value={payloadAddTransaction.amount}
+          icon={DollarSign}
+        />
 
+        <InputSelect
+          name="categoria"
+          label="Categoria"
+          options={categories}
+          selectedId={payloadAddTransaction.category_id}
+          onChange={(e: any) => {
+            setPayloadAddTransaction({
+              ...payloadAddTransaction,
+              category_id: e.target.value,
+            });
+          }}
+        />
+      </Card>
       <Card className="mt-5">
         <table>
           <thead>
@@ -214,125 +251,8 @@ const Home: React.FC = () => {
           ) : null}
         </div>
       </Card>
-
-      {showModalNovaTransacao && (
-        <ModalNovaTransacao
-          handleAddTransaction={handleAddTransaction}
-          show={showModalNovaTransacao}
-          setShow={setShowModalNovaTransacao}
-          payloadAddTransaction={payloadAddTransaction}
-          setPayloadAddTransaction={setPayloadAddTransaction}
-        />
-      )}
     </Container>
   );
 };
 
 export default Home;
-
-interface IModalNovaTransacaoProps {
-  show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  payloadAddTransaction: PayloadAddTransaction;
-  setPayloadAddTransaction: React.Dispatch<
-    React.SetStateAction<PayloadAddTransaction>
-  >;
-  handleAddTransaction: () => void;
-}
-
-const ModalNovaTransacao: React.FC<IModalNovaTransacaoProps> = ({
-  show,
-  setShow,
-  payloadAddTransaction,
-  setPayloadAddTransaction,
-  handleAddTransaction,
-}) => {
-  console.log("payloadAddTransaction", payloadAddTransaction);
-
-  return (
-    <Modal show={show} onHide={() => setShow(false)} centered>
-      <Modal.Body>
-        <Input
-          label="Descrição"
-          type={"text"}
-          name="description"
-          onChange={(e) => {
-            setPayloadAddTransaction({
-              ...payloadAddTransaction,
-              description: e.target.value,
-            });
-          }}
-          value={payloadAddTransaction.description}
-          icon={Pen}
-        />
-        <div className="d-flex">
-          <Input
-            className="me-2"
-            label="Ammount"
-            type={"number"}
-            name="ammount"
-            value={payloadAddTransaction.amount}
-            icon={DollarSign}
-            onChange={(e) => {
-              setPayloadAddTransaction({
-                ...payloadAddTransaction,
-                amount: Number(e.target.value),
-              });
-            }}
-          />
-
-          <Input
-            label="Data de vencimento"
-            type={"date"}
-            name="due_date"
-            value={payloadAddTransaction.due_date}
-            icon={Calendar}
-            onChange={(e) => {
-              setPayloadAddTransaction({
-                ...payloadAddTransaction,
-                due_date: e.target.value,
-              });
-            }}
-          />
-        </div>
-
-        <div
-          className={`d-flex justify-content-between align-items-center mb-2`}
-        >
-          <Button.Root
-            variant="error"
-            onClick={() => {
-              setPayloadAddTransaction({
-                ...payloadAddTransaction,
-                type: "output",
-              });
-            }}
-            className={`me-2 ${
-              payloadAddTransaction.type !== "output" ? "type_desactive" : ""
-            }`}
-          >
-            <Button.Text>Despesa</Button.Text>
-          </Button.Root>
-          <Button.Root
-            variant="success"
-            onClick={() => {
-              setPayloadAddTransaction({
-                ...payloadAddTransaction,
-                type: "input",
-              });
-            }}
-            className={` ${
-              payloadAddTransaction.type !== "input" ? "type_desactive" : ""
-            }`}
-          >
-            <Button.Text>Entrada</Button.Text>
-          </Button.Root>
-        </div>
-
-        <Button.Root onClick={handleAddTransaction} className="mb-2">
-          <Button.Text>Cadastrar</Button.Text>
-        </Button.Root>
-      </Modal.Body>
-    </Modal>
-  );
-};

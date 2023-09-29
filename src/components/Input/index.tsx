@@ -21,12 +21,7 @@ const Input: React.FC<IInputProps> = ({
     <Container className={className}>
       <Label>{label}</Label>
       <InputContainer required={rest.required} value={rest.value}>
-        {Icon && (
-          <Icon
-            size={16}
-            color={rest.required && !rest.value ? "#b9b8b8" : "#27ae60"}
-          />
-        )}
+        {Icon && <Icon size={16} color={"#b9b8b8"} />}
         <input
           required={rest.required}
           defaultValue={rest.defaultValue}
@@ -37,7 +32,6 @@ const Input: React.FC<IInputProps> = ({
           onChange={rest.onChange}
           {...rest}
         />
-        {rest.required && rest.value && <Check size={16} color="#27ae60" />}
       </InputContainer>
     </Container>
   );

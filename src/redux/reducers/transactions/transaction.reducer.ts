@@ -96,7 +96,7 @@ const addTransaction = createAsyncThunk(
       type,
       user_id: 1,
     });
-    console.log("[RESPONSE] ", response);
+    "[RESPONSE] ", response;
     return response;
     // chama o fetchTransactions para atualizar a lista de transações
   }

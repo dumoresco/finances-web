@@ -35,7 +35,9 @@ const Login: React.FC = () => {
           placeholder="Digite sua senha"
           icon={Key}
           required
+          className="mt-2"
         />
+
         <Button.Root
           className="mt-2"
           onClick={handleLogin}

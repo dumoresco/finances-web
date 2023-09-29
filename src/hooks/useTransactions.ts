@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useEffect } from "react";
 import {
   PayloadAddTransaction,
@@ -8,8 +9,11 @@ import {
 } from "../redux/reducers/transactions/transaction.reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
+import api from "../config/api";
+import { Category } from "../types/category";
 
 export const useTransactions = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
   const [showModalNovaTransacao, setShowModalNovaTransacao] = useState(false);
   const [sort, setSort] = useState("asc");
   const transactions = useSelector(selectTransactions);
@@ -20,6 +24,7 @@ export const useTransactions = () => {
       description: "",
       amount: 0,
       due_date: "",
+      category_id: 0,
     });
 
   const date = new Date();
@@ -62,6 +67,12 @@ export const useTransactions = () => {
         month: yearMonthSelected.id,
       })
     );
+  };
+
+  const fetchCategories = () => {
+    api.get("/category").then((response) => {
+      setCategories(response.data);
+    });
   };
 
   const toggleSort = () => {
@@ -146,7 +157,7 @@ export const useTransactions = () => {
 
     setShowModalNovaTransacao(false);
 
-    await handleFetchTransactions();
+    handleFetchTransactions();
   };
 
   // quando o yearMonthSelected mudar, chama o fetchTransactions
@@ -154,6 +165,9 @@ export const useTransactions = () => {
     handleFetchTransactions();
   }, [yearMonthSelected]);
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   return {
     transactions,
     isFetching,
@@ -169,6 +183,8 @@ export const useTransactions = () => {
 
     payloadAddTransaction,
     setPayloadAddTransaction,
+
+    categories,
 
     saldo,
     entradas,
