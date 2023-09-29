@@ -6,12 +6,14 @@ import { Key, LogIn, MailIcon } from "lucide-react";
 import { Button } from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import Logotipo from "../../components/Logotipo";
 
 const Login: React.FC = () => {
   const { payloadLogin, setPayloadLogin, handleLogin, isFetching } = useAuth();
   return (
     <Container>
-      <div className="form_container">
+      <Logotipo />
+      <div className="form_container mt-5">
         <Input
           value={payloadLogin.email}
           onChange={(e) =>
@@ -49,11 +51,9 @@ const Login: React.FC = () => {
             </>
           )}
         </Button.Root>
-          <Link to="/register"  className="mt-2 primary">
-            <small>
-              Criar uma conta
-            </small>
-          </Link>
+        <Link to="/register" className="mt-2 primary">
+          <small>Criar uma conta</small>
+        </Link>
       </div>
     </Container>
   );

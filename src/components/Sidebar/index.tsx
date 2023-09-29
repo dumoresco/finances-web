@@ -22,6 +22,7 @@ import {
 import { AppDispatch } from "../../redux/store";
 import { logout } from "../../redux/reducers/auth/auth.reducer";
 import { useDispatch } from "react-redux";
+import Logotipo from "../Logotipo";
 
 const Sidebar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -70,10 +71,7 @@ const Sidebar: React.FC = () => {
     <>
       <Container>
         <Header>
-          <div className="title">
-            <BadgeDollarSign />
-            <span>Meu dinheirinho</span>
-          </div>
+          <Logotipo />
         </Header>
 
         <Navigation>

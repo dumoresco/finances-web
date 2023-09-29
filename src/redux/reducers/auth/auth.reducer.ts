@@ -29,14 +29,18 @@ export interface RegisterPayload {
 const signIn = createAsyncThunk(
   "auth/signIn",
   async (payload: LoginPayload) => {
-    try{
-      const response = await api.post("/signin", payload)
+    try {
+      const response = await api.post("/signin", payload);
 
-      return response.data;
-    }catch(error){ 
-      console.log(error)
+      if (response.status === 200) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        window.localStorage.setItem("token", response.data.token);
+        toast.success("Login realizado com sucesso!");
       }
-  
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
@@ -73,7 +77,7 @@ const authSlice = createSlice({
       state.token = "";
 
       window.location.href = "/login";
-    }
+    },
   },
   extraReducers: (builder) => {
     builder

@@ -16,7 +16,7 @@ export const Label = styled.label`
 `;
 export const InputContainer = styled.div<InputContainerProps>`
   border: 1px solid
-    ${(props) => (props.required && !props.value ? "#c0392b" : "#27ae60")};
+    ${(props) => (props.required && !props.value ? "#b9b8b8" : "#27ae60")};
   display: flex;
   align-items: center;
   justify-content: space-between;

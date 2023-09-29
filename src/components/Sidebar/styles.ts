@@ -9,17 +9,6 @@ export const Container = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  .title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span {
-      font-size: 1.2rem;
-      font-weight: 400;
-      margin-left: 0.5rem;
-    }
-  }
 
   @media (max-width: 768px) {
     display: none;

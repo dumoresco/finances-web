@@ -2,16 +2,18 @@ import React from "react";
 
 import { Container } from "./styles";
 import Input from "../../components/Input";
-import { Check, Key, LogIn, MailIcon, User } from "lucide-react";
+import { Check, Key, MailIcon, User } from "lucide-react";
 import { Button } from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import Logotipo from "../../components/Logotipo";
 
 const Register: React.FC = () => {
   const { payloadRegister, setPayloadRegister, handleRegister } = useAuth();
   return (
     <Container>
-      <div className="form_container">
+      <Logotipo />
+      <div className="form_container mt-5">
         <Input
           value={payloadRegister.name}
           onChange={(e) =>
@@ -58,11 +60,9 @@ const Register: React.FC = () => {
           <Button.Text>Cadastrar</Button.Text>
           <Button.Icon icon={Check} />
         </Button.Root>
-          <Link to="/login"  className="mt-2 primary">
-            <small>
-              Entrar na minha conta 
-            </small>
-          </Link>
+        <Link to="/login" className="mt-2 primary">
+          <small>Entrar na minha conta</small>
+        </Link>
       </div>
     </Container>
   );
